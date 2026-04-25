@@ -1,9 +1,9 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/kOqwghv0)
 # ML Project — [Название проекта]
 
-**Студент:** [ФИО / Student ID]
+**Студент:** Гудкова Ксения Дмитриевна
 
-**Группа:** [Группа]
+**Группа:** БИВ238
 
 
 ## Оглавление
@@ -20,11 +20,11 @@
 
 <!-- Кратко опишите задачу: что предсказываем, какой датасет, метрика качества -->
 
-**Задача:** [Классификация / Регрессия / Кластеризация / ...]
+**Задача:** Регрессия
 
-**Датасет:** [Название и источник датасета]
+**Датасет:** Использовался датасет с данными о количестве взятых в прокат велосипедов с кагла (в качестве архива данных, так как иначе понадобится год чтобы данные собрать):https://www.kaggle.com/datasets/ranjanrakesh51/divvy-bike-sharing-data-jan-24-to-mar-25?resource=download&select=202503-divvy-tripdata.csv. Также использовалась API для получения данных о погодных условиях за тот период. Далее все соединялось в один датасет.
 
-**Целевая метрика:** [Accuracy / F1 / RMSE / ...]
+**Целевая метрика:** Испаользовались MAE и R2
 
 
 ## Структура репозитория
@@ -67,6 +67,9 @@ source .venv/bin/activate   # Linux/macOS
 
 # 3. Установить зависимости
 pip install -r requirements.txt
+
+# 4. Запуск программы
+python src/modeling.py
 ```
 
 ## Данные
@@ -80,6 +83,9 @@ pip install -r requirements.txt
 |--------|-------------|-------------|------------|
 | Baseline | — | — | |
 | Лучшая модель | — | — | |
+
+<img width="363" height="114" alt="image" src="https://github.com/user-attachments/assets/52b4f991-7b82-449c-b2f9-ebedb25176b7" />
+
 
 
 ## Отчёт
