@@ -20,10 +20,21 @@ def prepare_full_dataset(data_raw_dir):
     df_raw = pd.concat(df_list, ignore_index=True)
     print(f"Всего загружено сырых строк поездок: {len(df_raw)}")
 
+    # Удаляем дубликаты поездок
+    df_raw = df_raw.drop_duplicates()
+    print(f"Строк после удаления дубликатов: {len(df_raw)}")
+
+    # Удаляем строки с пропусками в целевой колонке
+    df_raw = df_raw.dropna(subset=['started_at'])
+
     df_raw['timestamp'] = pd.to_datetime(df_raw['started_at'], format='mixed').dt.round('h')
 
     # Группируем поездки по часам
     df_bikes = df_raw.groupby('timestamp').size().reset_index(name='target')
+
+    # Удаляем аномальные выбросы
+    q_high = df_bikes['target'].quantile(0.999)
+    df_bikes = df_bikes[df_bikes['target'] <= q_high]
 
     # Определяем границы для погоды
     start = df_bikes['timestamp'].min().strftime('%Y-%m-%d')
@@ -38,6 +49,7 @@ def prepare_full_dataset(data_raw_dir):
     df = pd.merge(df_bikes, df_weather, on='timestamp', how='inner')
     df['hour'] = df['timestamp'].dt.hour
     df['day_of_week'] = df['timestamp'].dt.dayofweek
+    df['month'] = df['timestamp'].dt.month
     df['cnt_lag_24h'] = df['target'].shift(24)
 
     df = df.dropna()

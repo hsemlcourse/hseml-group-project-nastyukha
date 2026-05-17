@@ -3,6 +3,9 @@ version: '3.8'
 services:
   ml-pipeline:
     build: .
+    container_name: bike_sharing_ml
     volumes:
-      - .:/app
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./.cache:/app/.cache
     command: python src/modeling.py
