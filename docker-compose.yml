@@ -3,9 +3,20 @@ version: '3.8'
 services:
   ml-pipeline:
     build: .
-    container_name: bike_sharing_ml
+    container_name: bike_sharing_backend
+    ports:
+      - "8000:8000"
     volumes:
       - ./data:/app/data
       - ./models:/app/models
       - ./.cache:/app/.cache
-    command: python src/modeling.py
+    command: uvicorn src.app:app --host 0.0.0.0 --port 8000
+
+  ui:
+    build: .
+    container_name: bike_sharing_ui
+    ports:
+      - "8501:8501"
+    depends_on:
+      - ml-pipeline
+    command: streamlit run src/interface.py --server.port 8501 --server.address 0.0.0.0
